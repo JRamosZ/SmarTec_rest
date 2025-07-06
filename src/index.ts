@@ -1,7 +1,11 @@
 import express from "express";
+import cors from "cors";
 import {AppDataSource} from "./config/data-source";
 
 const app = express();
+app.use(express.json());
+app.use(cors());
+
 const port = process.env.PORT || 3000;
 
 AppDataSource.initialize()
@@ -11,8 +15,6 @@ AppDataSource.initialize()
   .catch((err) => {
     console.error("Error during Data Source initialization", err);
   });
-
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json("SmarTec API is running");
